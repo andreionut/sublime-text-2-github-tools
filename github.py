@@ -49,6 +49,9 @@ class GitRepo:
   def blame_file_url(self, filename):
     return git_blame_file_url(self.repository_path, self.path_from_rootdir(filename), self.branch())
 
+  def pull_request_url(self, to_branch):
+    return git_pull_request_url(self.repository_path,  self.branch(), to_branch)
+
   def parse_repository(self, remotes):
     remotes = list(set(map(lambda l: re.split("\s", l)[1], remotes.splitlines())))
     return self.make_repository_url(remotes)
@@ -104,3 +107,11 @@ def git_browse_file_url(repository, filepath, branch='master'):
 
 def git_blame_file_url(repository, filepath, branch='master'):
   return "https://%s/blame/%s%s" % (repository, branch, filepath)
+
+def git_branch_url(repository, branch):
+  return "https://%s/tree/%s" % (repository, branch)
+
+def git_pull_request_url(repository, from_branch='master', to_branch='master'):
+  if from_branch == 'master':
+    return
+  return "https://%s/pull/new/%s...%s" % (repository, to_branch, from_branch)

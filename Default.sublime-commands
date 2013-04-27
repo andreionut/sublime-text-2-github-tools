@@ -6,5 +6,9 @@
   {
     "caption": "Github: Blame",
     "command": "github_blame"
+  },
+  {
+    "caption": "Github: Pull Request",
+    "command": "github_pull_request"
   }
 ]
