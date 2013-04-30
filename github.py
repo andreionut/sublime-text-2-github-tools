@@ -41,7 +41,8 @@ class GitRepo:
     return self.parse_branch(self.git("branch"))
 
   def get_remote_branches(self):
-    output = self.git("branch -r --no-color --no-merged")
+    self.git("fetch --all")
+    output = self.git("branch -r --no-color --no-merged origin/master~1")
     branches = output.rstrip().split('\n')
     branches = ['master'] + [i.strip().replace('origin/','') for i in branches]
     return branches
